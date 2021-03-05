@@ -1,0 +1,51 @@
+#directive
+<data-table-online> - online query
+<data-table-offline> - offline manual set of items
+
+#online
+[props]
+action - boolean -  true -to show action menu (entries option, status bar, pagination)
+showEntriesOption - boolean - true - to show Entries Option Menu
+headers - array - required - header of the table - [align (right, left, center), value (column), text (Header text), style, class]
+url  - string - required - url where to get the data
+search - boolean - true - enable/disable search bar
+tableClass - array - ['table', 'table-default', 'table-sm', 'table-bordered', 'table-hover', 'table-striped'] - table classes
+searchString - string - null - search string value
+pageStart - Number - 1 - starting page
+itemsPerPage - Number - 10 - Items per page to show
+maxPageVisible - Number - 5 - number of pages to show
+requestWith - object - {} - add request with url
+entriesOptions - array - [10,15,20,50,100, -1] - option for items per page
+noResultsText - string - 'No data found.' - text for no result found
+loadingText - string - 'Loading data. Please wait...' - loading text
+nextText - string - '»' - pagination next button text
+prevText - string - '«' - pagination next button text
+lastText - string - '&rarr;' - pagination next button text
+firstText - string - '&larr;' - pagination next button text
+showSelect - boolean - false - show select option (both header and table rows)
+singleSelect - boolean - false - show select option (table rows only)
+showLoading - boolean - true - show loading animation
+
+[slots]
+top - top slots
+action-before - before entry options
+action-after -after entry options
+search-before - before search bar
+search-after - after search bar
+header - to overide header
+items - to overide items
+bottom - bottom slots
+
+[slot scopes]
+items - items - all
+headers - headers - all
+selected - get selected items - all
+allSelected - toggle select all- all
+range - pagination range - all
+sort - to sort data (argument - item column) - all
+refresh - refreshes data (requery from server) - all
+select - to select item (argument item) - all
+from - pagination from - all
+to - pagination to - all
+
+item - (item slot)
