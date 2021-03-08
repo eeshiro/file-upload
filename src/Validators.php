@@ -20,6 +20,15 @@ Class Validators{
         return $this;
     }
 
+    public function single(){
+        if($this->file->upload_type != "single" && !is_null($this->file->upload_type)){
+        	$this->push_error("single", "Field ".$this->file->field_name." is expected to be a single file upload.");
+        }
+
+        return $this;
+    }
+
+
     public function multiple(){
         if($this->file->upload_type != "multiple" && !is_null($this->file->upload_type)){
         	$this->push_error("multiple", "Field ".$this->file->field_name." is expected to be a multiple file upload.");
@@ -27,6 +36,8 @@ Class Validators{
 
         return $this;
     }
+
+
 
     public function max_file($num){
         
@@ -86,20 +97,41 @@ Class Validators{
         return $this;
     }
 
-    public function min_size($size_mb){
-      	$size = $size_mb * 1000000;
+    public function min_size($size, $size_type = 'MB'){
 
+    	$size_type = strtoupper($size_type);
+
+    	switch ($size_type) {
+    		case 'TB':
+    			$size = $size * pow(1024, 4);
+    			break;
+
+    		case 'GB':
+    			$size = $size * pow(1024, 3);
+    			break;
+
+    		case 'MB':
+    			$size = $size * pow(1024, 2);
+    			break;
+
+    		default:
+    			$size_type = 'KB';
+    			$size = $size * 1024;
+    			break;
+    	}
+
+      	
         if($this->file->upload_type == "single"){
 
             if ($this->file->file["size"] < $size) {
-            	$this->push_error('min_size', "File ".basename($this->file->file["name"])."  size too small. Minimum size allowed is $size_mb MB.");
+            	$this->push_error('min_size', "File ".basename($this->file->file["name"])."  size too small. Minimum size allowed is $size_mb $size_type.");
             } 
         }elseif($this->file->upload_type == "multiple"){
             foreach ($this->file->file as $key => $file) {
                 
                 if ($file["size"] < $size) {
                    $this->push_error('min_size-'.basename($file["name"]), 
-                   	"File ".basename($file["name"])."  size too small. Minimum size allowed is $size_mb MB.");  
+                   	"File ".basename($file["name"])."  size too small. Minimum size allowed is $size_mb $size_type.");  
                 } 
 
             }
@@ -108,13 +140,32 @@ Class Validators{
         return $this;
     }
 
-    public function max_size($size_mb){
-        $size = $size_mb * 1000000;
+    public function max_size($size, $size_type = 'MB'){
+        $size_type = strtoupper($size_type);
+
+    	switch ($size_type) {
+    		case 'TB':
+    			$size = $size * pow(1024, 4);
+    			break;
+
+    		case 'GB':
+    			$size = $size * pow(1024, 3);
+    			break;
+
+    		case 'MB':
+    			$size = $size * pow(1024, 2);
+    			break;
+
+    		default:
+    			$size_type = 'KB';
+    			$size = $size * 1024;
+    			break;
+    	}
 
         if($this->file->upload_type == "single"){
             
             if ($this->file->file["size"] > $size) {
-            	$this->push_error('max_size', "File ".basename($this->file->file["name"])."  size too large. Maximum size allowed is $size_mb MB.");
+            	$this->push_error('max_size', "File ".basename($this->file->file["name"])."  size too large. Maximum size allowed is $size_mb $size_type.");
             }
 
         } elseif($this->file->upload_type == "multiple"){
@@ -122,7 +173,7 @@ Class Validators{
 
                 if ($file["size"] > $size) {
                     $this->push_error('max_size-'.basename($file["name"]), 
-                   	"File ".basename($file["name"])."  size too large. Maximum size allowed is $size_mb MB.");             
+                   	"File ".basename($file["name"])."  size too large. Maximum size allowed is $size_mb $size_type.");             
                 } 
 
             }

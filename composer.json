@@ -1,8 +1,8 @@
 {
     "name": "eeshiro/file-upload",
     "version" : "1.0.0",
-    "description": "Handles http file upload request from form data",
-    "keywords": ["decimal-to-word","money-words"],
+    "description": "Simple File uploading library capable of handling multiple file uploads",
+    "keywords": ["file-upload","php fileupload library"],
     "homepage": "https://github.com/eeshiro/file-upload",
     "type": "library",
     "license": "MIT",

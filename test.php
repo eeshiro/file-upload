@@ -3,8 +3,8 @@ require "src/FileUpload.php";
 
 if($_SERVER["REQUEST_METHOD"] == 'POST'){
 	$upload = new FileUpload;
-	$upload->validate('single', 'Single')->required()->min_size(5)->get();
-	$file = $upload->validate('multiple', 'Multiple')->required()->min_size(6)->get();
+	$upload->validate('single', 'Single')->required()->single()->min_size(2048, 'KB')->get();
+	$file = $upload->validate('multiple', 'Multiple')->required()->multiple()->min_size(2, 'MB')->get();
 	var_dump($upload->move_uploaded_file($file[0], 'uploads/file'.time().'.txt'));
 }
  ?>
