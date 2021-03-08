@@ -51,7 +51,7 @@ foreach ($multiple_file as $key => $file) {
 ```
 # Rules and Methods Reference
 
-```html
+
 <table>
 	<thead>
 		<tr>
@@ -187,7 +187,7 @@ foreach ($multiple_file as $key => $file) {
 		</tr>
 	</tbody>
 </table>
-```
+
 
 
 
