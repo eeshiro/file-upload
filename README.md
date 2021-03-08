@@ -45,7 +45,7 @@ if($upload->has_error()){
 $upload->move_uploaded_file($single_file, 'directory/filename.txt');
 
 foreach ($multiple_file as $key => $file) {
-	$upload->move_uploaded_file($single_file, 'directory/'.$file['name']);
+	$upload->move_uploaded_file($file, 'directory/'.$file['name']);
 }
 
 ```
